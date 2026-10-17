@@ -16,7 +16,7 @@ export const Route = createFileRoute("/dashboard")({
   component: Dashboard,
 });
 
-const stock: Record<string, { units: number; expiring: number }> = {
+const stock: Record<string, { units: number; expiring: number } | undefined> = {
   "O−": { units: 412, expiring: 38 }, "O+": { units: 3820, expiring: 140 }, "A−": { units: 298, expiring: 12 }, "A+": { units: 2960, expiring: 96 },
   "B−": { units: 236, expiring: 21 }, "B+": { units: 3410, expiring: 118 }, "AB−": { units: 84, expiring: 6 }, "AB+": { units: 1120, expiring: 44 },
 };
@@ -53,11 +53,11 @@ function Dashboard() {
           <div key={g} className="card-surface card-lift p-5">
             <div className="flex items-start justify-between">
               <p className="font-heading text-2xl font-extrabold text-primary">{g}</p>
-              {stock[g].units < 500 && <span className="rounded-full bg-warning-soft px-2 py-0.5 text-[11px] font-bold text-warning">Low</span>}
+              {(stock[g]?.units ?? 0) < 500 && <span className="rounded-full bg-warning-soft px-2 py-0.5 text-[11px] font-bold text-warning">Low</span>}
             </div>
-            <p className="mt-3 font-heading text-2xl font-bold">{stock[g].units.toLocaleString("en-IN")}</p>
+            <p className="mt-3 font-heading text-2xl font-bold">{(stock[g]?.units ?? 0).toLocaleString("en-IN")}</p>
             <p className="text-xs text-muted-foreground">units available</p>
-            <span className="mt-3 inline-block rounded-full bg-muted px-2.5 py-1 text-xs font-semibold">{stock[g].expiring} expire in 3 days</span>
+            <span className="mt-3 inline-block rounded-full bg-muted px-2.5 py-1 text-xs font-semibold">{stock[g]?.expiring ?? 0} expire in 3 days</span>
           </div>
         ))}
       </section>
@@ -71,7 +71,7 @@ function Dashboard() {
               {CITIES.map((c) => (
                 <tr key={c}>
                   <th className="text-left font-medium">{c}</th>
-                  {heat[c].map((l, i) => <td key={i} className={`rounded-lg py-2 font-semibold capitalize ${cellCls[l]}`}>{l}</td>)}
+                  {(heat[c] ?? []).map((l, i) => <td key={i} className={`rounded-lg py-2 font-semibold capitalize ${cellCls[l]}`}>{l}</td>)}
                 </tr>
               ))}
             </tbody>

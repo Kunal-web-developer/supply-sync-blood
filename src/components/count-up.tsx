@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-export function CountUp({ to, decimals = 0, suffix = "" }: { to: number; decimals?: number; suffix?: string }) {
+export function CountUp({ to, decimals = 0, suffix = "" }: { to: number; decimals?: number; suffix?: string | undefined }) {
   const [v, setV] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);
   useEffect(() => {
@@ -9,7 +9,7 @@ export function CountUp({ to, decimals = 0, suffix = "" }: { to: number; decimal
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) { setV(to); return; }
     let raf = 0;
     const io = new IntersectionObserver(([e]) => {
-      if (!e.isIntersecting) return;
+      if (!e?.isIntersecting) return;
       io.disconnect();
       const start = performance.now();
       const tick = (t: number) => {
