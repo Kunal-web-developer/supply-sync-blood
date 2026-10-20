@@ -4,7 +4,7 @@ import { BLOOD_GROUPS, CITIES, COMPONENTS, searchBanks, type BloodGroup, type Ci
 import { DemoBadge } from "./site";
 import { AskBloodBridge } from "./ask-bloodbridge";
 
-export function RequestBloodCard() {
+export function RequestBloodCard({ withAsk = true }: { withAsk?: boolean }) {
   const [group, setGroup] = useState<BloodGroup>("O−");
   const [component, setComponent] = useState<Component>("Platelets");
   const [city, setCity] = useState<City>("Mumbai");
@@ -72,10 +72,10 @@ export function RequestBloodCard() {
           )}
         </div>
       )}
-      <details className="mt-5 rounded-2xl border border-border p-4">
+      {withAsk && <details className="mt-5 rounded-2xl border border-border p-4">
         <summary className="cursor-pointer font-semibold">Ask BloodBridge in your own words</summary>
         <div className="mt-4"><AskBloodBridge /></div>
-      </details>
+      </details>}
     </div>
   );
 }

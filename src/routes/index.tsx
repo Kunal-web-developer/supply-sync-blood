@@ -111,7 +111,7 @@ function Index() {
       <Section id="portals" eyebrow="Portals" title="One bridge. Three ways to make a difference.">
         <div className="grid gap-5 md:grid-cols-3">
           {[
-            { i: HeartPulse, l: "Receiver portal", t: "I need blood", d: "Share your requirement and let AI find the safest, nearest match in minutes.", b: "Request blood", href: "/#request" },
+            { i: HeartPulse, l: "Receiver portal", t: "I need blood", d: "Share your requirement and let AI find the safest, nearest match in minutes.", b: "Request blood", to: "/receiver" },
             { i: HandHeart, l: "Volunteer portal", t: "I want to help", d: "Register once, stay updated, and donate when someone nearby needs you most.", b: "Become a donor", to: "/donor", hl: true },
             { i: Building2, l: "Blood bank & hospital", t: "I manage inventory", d: "Manage live inventory, verify requests, and coordinate supply across your network.", b: "Open workspace", to: "/workspace" },
           ].map((p) => (

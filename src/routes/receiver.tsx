@@ -28,7 +28,7 @@ function Receiver() {
         <h2 className="mb-4 text-xl font-bold">Ask BloodBridge</h2>
         <AskBloodBridge />
       </div>
-      <RequestBloodCard />
+      <RequestBloodCard withAsk={false} />
     </div>
   );
 }
