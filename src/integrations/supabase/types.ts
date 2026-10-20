@@ -14,7 +14,126 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      ai_runs: {
+        Row: {
+          created_at: string
+          fn: string
+          id: string
+          model: string
+          ms: number
+          ok: boolean
+        }
+        Insert: {
+          created_at?: string
+          fn: string
+          id?: string
+          model: string
+          ms: number
+          ok?: boolean
+        }
+        Update: {
+          created_at?: string
+          fn?: string
+          id?: string
+          model?: string
+          ms?: number
+          ok?: boolean
+        }
+        Relationships: []
+      }
+      alerts: {
+        Row: {
+          created_at: string
+          id: string
+          kind: string
+          message: string
+          recipients: number
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          kind: string
+          message: string
+          recipients?: number
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          kind?: string
+          message?: string
+          recipients?: number
+        }
+        Relationships: []
+      }
+      donors: {
+        Row: {
+          availability: string
+          blood_group: string
+          city: string
+          consent_alerts: boolean
+          created_at: string
+          id: string
+          name: string
+        }
+        Insert: {
+          availability?: string
+          blood_group: string
+          city: string
+          consent_alerts?: boolean
+          created_at?: string
+          id?: string
+          name: string
+        }
+        Update: {
+          availability?: string
+          blood_group?: string
+          city?: string
+          consent_alerts?: boolean
+          created_at?: string
+          id?: string
+          name?: string
+        }
+        Relationships: []
+      }
+      inventory: {
+        Row: {
+          bank_name: string
+          blood_group: string
+          city: string
+          component: string
+          expiry_date: string
+          id: string
+          km: number
+          phone: string | null
+          units: number
+          updated_at: string
+        }
+        Insert: {
+          bank_name: string
+          blood_group: string
+          city: string
+          component: string
+          expiry_date: string
+          id?: string
+          km?: number
+          phone?: string | null
+          units?: number
+          updated_at?: string
+        }
+        Update: {
+          bank_name?: string
+          blood_group?: string
+          city?: string
+          component?: string
+          expiry_date?: string
+          id?: string
+          km?: number
+          phone?: string | null
+          units?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
