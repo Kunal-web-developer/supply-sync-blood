@@ -2,8 +2,9 @@ import { useState } from "react";
 import { BellRing, CheckCircle2, MapPin } from "lucide-react";
 import { BLOOD_GROUPS, CITIES, COMPONENTS, searchBanks, type BloodGroup, type City, type Component } from "@/lib/demo-data";
 import { DemoBadge } from "./site";
+import { AskBloodBridge } from "./ask-bloodbridge";
 
-export function RequestBloodCard() {
+export function RequestBloodCard({ withAsk = true }: { withAsk?: boolean }) {
   const [group, setGroup] = useState<BloodGroup>("O−");
   const [component, setComponent] = useState<Component>("Platelets");
   const [city, setCity] = useState<City>("Mumbai");
@@ -71,6 +72,10 @@ export function RequestBloodCard() {
           )}
         </div>
       )}
+      {withAsk && <details className="mt-5 rounded-2xl border border-border p-4">
+        <summary className="cursor-pointer font-semibold">Ask BloodBridge in your own words</summary>
+        <div className="mt-4"><AskBloodBridge /></div>
+      </details>}
     </div>
   );
 }

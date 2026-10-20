@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as DonorRouteImport } from './routes/donor'
+import { Route as ReceiverRouteImport } from './routes/receiver'
 import { Route as WorkspaceRouteImport } from './routes/workspace'
 
 const IndexRoute = IndexRouteImport.update({
@@ -29,6 +30,11 @@ const DonorRoute = DonorRouteImport.update({
   path: '/donor',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ReceiverRoute = ReceiverRouteImport.update({
+  id: '/receiver',
+  path: '/receiver',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const WorkspaceRoute = WorkspaceRouteImport.update({
   id: '/workspace',
   path: '/workspace',
@@ -39,12 +45,14 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
   '/donor': typeof DonorRoute
+  '/receiver': typeof ReceiverRoute
   '/workspace': typeof WorkspaceRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
   '/donor': typeof DonorRoute
+  '/receiver': typeof ReceiverRoute
   '/workspace': typeof WorkspaceRoute
 }
 export interface FileRoutesById {
@@ -52,20 +60,22 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
   '/donor': typeof DonorRoute
+  '/receiver': typeof ReceiverRoute
   '/workspace': typeof WorkspaceRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/donor' | '/workspace'
+  fullPaths: '/' | '/dashboard' | '/donor' | '/receiver' | '/workspace'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/donor' | '/workspace'
-  id: '__root__' | '/' | '/dashboard' | '/donor' | '/workspace'
+  to: '/' | '/dashboard' | '/donor' | '/receiver' | '/workspace'
+  id: '__root__' | '/' | '/dashboard' | '/donor' | '/receiver' | '/workspace'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DashboardRoute: typeof DashboardRoute
   DonorRoute: typeof DonorRoute
+  ReceiverRoute: typeof ReceiverRoute
   WorkspaceRoute: typeof WorkspaceRoute
 }
 
@@ -92,6 +102,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DonorRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/receiver': {
+      id: '/receiver'
+      path: '/receiver'
+      fullPath: '/receiver'
+      preLoaderRoute: typeof ReceiverRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/workspace': {
       id: '/workspace'
       path: '/workspace'
@@ -106,6 +123,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DashboardRoute: DashboardRoute,
   DonorRoute: DonorRoute,
+  ReceiverRoute: ReceiverRoute,
   WorkspaceRoute: WorkspaceRoute,
 }
 export const routeTree = rootRouteImport

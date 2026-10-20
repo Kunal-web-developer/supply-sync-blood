@@ -6,6 +6,7 @@ import { RequestBloodCard } from "@/components/request-blood";
 import { CountUp } from "@/components/count-up";
 import { ForecastChart } from "@/components/forecast-chart";
 import { DemoBadge } from "@/components/site";
+import { BENCHMARK, SAFETY_NOTICE } from "@/lib/ai-config";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -111,7 +112,7 @@ function Index() {
       <Section id="portals" eyebrow="Portals" title="One bridge. Three ways to make a difference.">
         <div className="grid gap-5 md:grid-cols-3">
           {[
-            { i: HeartPulse, l: "Receiver portal", t: "I need blood", d: "Share your requirement and let AI find the safest, nearest match in minutes.", b: "Request blood", href: "/#request" },
+            { i: HeartPulse, l: "Receiver portal", t: "I need blood", d: "Share your requirement and let AI find the safest, nearest match in minutes.", b: "Request blood", to: "/receiver" },
             { i: HandHeart, l: "Volunteer portal", t: "I want to help", d: "Register once, stay updated, and donate when someone nearby needs you most.", b: "Become a donor", to: "/donor", hl: true },
             { i: Building2, l: "Blood bank & hospital", t: "I manage inventory", d: "Manage live inventory, verify requests, and coordinate supply across your network.", b: "Open workspace", to: "/workspace" },
           ].map((p) => (
@@ -181,16 +182,26 @@ function Index() {
           </div>
           <div className="space-y-6">
             {[
-              { l: "PyTorch inference", v: 120, w: "100%", c: "bg-band-foreground/35" },
-              { l: "TensorRT inference", v: 18, w: "15%", c: "bg-primary" },
+              { l: BENCHMARK.baselineLabel, v: BENCHMARK.baselineMs, w: "100%", c: "bg-band-foreground/35" },
+              { l: BENCHMARK.optimizedLabel, v: BENCHMARK.optimizedMs, w: `${Math.max(4, Math.round((BENCHMARK.optimizedMs / BENCHMARK.baselineMs) * 100))}%`, c: "bg-primary" },
             ].map((b) => (
               <div key={b.l}>
                 <div className="flex justify-between text-sm font-semibold"><span>{b.l}</span><span>{b.v} ms</span></div>
                 <div className="mt-2 h-4 rounded-full bg-band-foreground/10"><div className={`h-4 rounded-full ${b.c}`} style={{ width: b.w }} /></div>
               </div>
             ))}
-            <p className="font-heading text-2xl font-extrabold"><Sparkles className="mr-2 inline h-5 w-5 text-primary" aria-hidden />about 6.7× faster</p>
+            <p className="font-heading text-2xl font-extrabold"><Sparkles className="mr-2 inline h-5 w-5 text-primary" aria-hidden />about {(BENCHMARK.baselineMs / BENCHMARK.optimizedMs).toFixed(1)}× faster</p>
           </div>
+        </div>
+      </section>
+
+      {/* Powered by */}
+      <section aria-label="Powered by" className="border-b border-border">
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-8 gap-y-3 px-4 py-6 text-sm">
+          <span className="font-semibold uppercase tracking-wider text-muted-foreground">Powered by</span>
+          <span className="rounded-full bg-card px-4 py-1.5 font-heading font-bold shadow-sm">Nebius Token Factory</span>
+          <span className="rounded-full bg-card px-4 py-1.5 font-heading font-bold shadow-sm">NVIDIA Nemotron</span>
+          <span className="text-xs text-muted-foreground">{SAFETY_NOTICE}</span>
         </div>
       </section>
 
