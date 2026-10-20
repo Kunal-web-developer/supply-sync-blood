@@ -78,9 +78,9 @@ const HISTORY: Record<string, number[]> = {
 export const forecastShortage = createServerFn({ method: "POST" }).handler(async () => {
   const SAFE = 40;
   const items = Object.entries(HISTORY).map(([k, h]) => {
-    const slope = (h[h.length - 1] - h[0]) / (h.length - 1);
-    const forecast = [1, 2, 3, 4].map((d) => Math.max(0, Math.round(h[h.length - 1] + slope * d * 1.6)));
-    const at72 = forecast[2];
+    const last = h[h.length - 1] ?? 0; const slope = (last - (h[0] ?? 0)) / (h.length - 1);
+    const forecast = [1, 2, 3, 4].map((d) => Math.max(0, Math.round(last + slope * d * 1.6)));
+    const at72 = forecast[2] ?? 0;
     const fallbackRisk = at72 < SAFE ? "high" : at72 < SAFE + 10 ? "medium" : "low";
     return { key: k, label: k.replace("|", " · "), history: h, forecast, at72, risk: fallbackRisk as "low" | "medium" | "high", explanation: `Stock is expected to reach ${at72}% of normal in 72 hours (safe level ${SAFE}%).` };
   });
@@ -112,9 +112,9 @@ export const aiStats = createServerFn({ method: "GET" }).handler(async () => {
   const { data } = await supabaseAdmin.from("ai_runs").select("ms,created_at,ok").order("created_at", { ascending: false }).limit(50);
   const ok = (data ?? []).filter((r) => r.ok);
   return {
-    model: process.env.NEBIUS_MODEL ?? AI_CONFIG.model,
+    model: process.env["NEBIUS_MODEL"] ?? AI_CONFIG.model,
     provider: AI_CONFIG.provider,
-    keyConfigured: Boolean(process.env.NEBIUS_API_KEY),
+    keyConfigured: Boolean(process.env["NEBIUS_API_KEY"]),
     lastRun: data?.[0]?.created_at ?? null,
     avgMs: ok.length ? Math.round(ok.reduce((s, r) => s + r.ms, 0) / ok.length) : null,
     runs: ok.length,

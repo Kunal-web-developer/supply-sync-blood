@@ -19,7 +19,7 @@ function Chart({ history, forecast, safe }: { history: number[]; forecast: numbe
       <line x1={P} x2={W - P} y1={y(safe)} y2={y(safe)} className="stroke-warning" strokeWidth={2} strokeDasharray="2 4" />
       <text x={W - P} y={y(safe) - 6} textAnchor="end" className="fill-warning text-[11px] font-semibold">Safe level</text>
       <path d={line(history, 0)} fill="none" className="stroke-chart-1" strokeWidth={3} strokeLinecap="round" />
-      <path d={line([history[history.length - 1], ...forecast], history.length - 1)} fill="none" className="stroke-primary" strokeWidth={3} strokeDasharray="7 6" strokeLinecap="round" />
+      <path d={line([history[history.length - 1] ?? 0, ...forecast], history.length - 1)} fill="none" className="stroke-primary" strokeWidth={3} strokeDasharray="7 6" strokeLinecap="round" />
       <text x={x(0)} y={H - 8} className="fill-muted-foreground text-[10px]">7 days ago</text>
       <text x={x(history.length - 1)} y={H - 8} textAnchor="middle" className="fill-muted-foreground text-[10px]">Today</text>
       <text x={x(n - 1)} y={H - 8} textAnchor="end" className="fill-muted-foreground text-[10px]">+4 days</text>
