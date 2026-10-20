@@ -24,7 +24,7 @@ export function rankBanks(rows: InventoryRow[], want: Pick<Extracted, "blood_gro
 export function fallbackExtract(text: string): Extracted {
   const t = text.toLowerCase().replace(/negative|neg|ve-|−/g, "-").replace(/positive|pos|ve\+/g, "+");
   const g = /\b(ab|a|b|o)\s*([+-])/.exec(t);
-  const blood_group = g ? `${g[1].toUpperCase()}${g[2] === "-" ? "−" : "+"}` : "O−";
+  const blood_group = g ? `${(g[1] ?? "o").toUpperCase()}${g[2] === "-" ? "−" : "+"}` : "O−";
   const component = /platelet/.test(t) ? "Platelets" : /plasma/.test(t) ? "Plasma" : /prbc|red cell|packed/.test(t) ? "Packed red cells" : "Whole blood";
   const u = /(\d+)\s*(unit|bottle|bag|u\b)/.exec(t);
   const city = CITIES.find((c) => t.includes(c.toLowerCase())) ?? "Mumbai";
